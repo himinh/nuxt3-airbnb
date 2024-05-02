@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const user = ref();
-const { onOpen } = useLogin();
+const user = ref({});
+const { onOpen: openLoginModal } = useLogin();
+const { onOpen: openRentModal } = useRentModal();
 </script>
 
 <template>
@@ -8,6 +9,7 @@ const { onOpen } = useLogin();
 		<div class="flex flex-row items-center gap-3">
 			<div
 				class="hidden cursor-pointer rounded-full px-4 py-3 text-sm font-semibold transition hover:bg-neutral-100 md:block"
+				@click="openRentModal"
 			>
 				Airbnb your home
 			</div>
@@ -41,7 +43,9 @@ const { onOpen } = useLogin();
 						<DropdownMenuItem>Reservations</DropdownMenuItem>
 						<DropdownMenuItem>My Favorites</DropdownMenuItem>
 						<DropdownMenuItem>My Properties</DropdownMenuItem>
-						<DropdownMenuItem>Airbnb your home</DropdownMenuItem>
+						<DropdownMenuItem @click="openRentModal"
+							>Airbnb your home</DropdownMenuItem
+						>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem>
 							<Icon name="lucide:log-out" class="mr-2" size="16" />
@@ -50,10 +54,12 @@ const { onOpen } = useLogin();
 					</template>
 
 					<template v-else>
-						<DropdownMenuItem @click="onOpen('register')"
+						<DropdownMenuItem @click="openLoginModal('register')"
 							>Register</DropdownMenuItem
 						>
-						<DropdownMenuItem @click="onOpen('login')">Login</DropdownMenuItem>
+						<DropdownMenuItem @click="openLoginModal('login')"
+							>Login</DropdownMenuItem
+						>
 					</template>
 				</DropdownMenuContent>
 			</DropdownMenu>

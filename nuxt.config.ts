@@ -2,12 +2,13 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 
 	modules: [
+		'@nuxtjs/eslint-module',
 		'@nuxtjs/tailwindcss',
 		'shadcn-nuxt',
 		'nuxt-typed-router',
 		'@pinia/nuxt',
-		'@nuxtjs/eslint-module',
 		'nuxt-icon',
+		'nuxt3-leaflet',
 	],
 
 	shadcn: {

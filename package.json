@@ -28,6 +28,7 @@
 		"markdown-it": "^14.1.0",
 		"nuxt": "^3.11.2",
 		"nuxt-icon": "^0.6.10",
+		"query-string": "^9.0.0",
 		"radix-vue": "^1.7.1",
 		"shadcn-nuxt": "^0.10.2",
 		"socket.io-client": "^4.7.5",
@@ -36,6 +37,8 @@
 		"vee-validate": "^4.12.6",
 		"vue": "^3.4.21",
 		"vue-router": "^4.3.0",
+		"vue-select": "4.0.0-beta.6",
+		"world-countries": "^5.0.0",
 		"zod": "^3.23.5"
 	},
 	"devDependencies": {
@@ -46,6 +49,7 @@
 		"@nuxtjs/tailwindcss": "^6.12.0",
 		"@tailwindcss/typography": "^0.5.12",
 		"@types/markdown-it": "^14.0.1",
+		"@types/vue-select": "^3.16.8",
 		"@typescript-eslint/eslint-plugin": "^7.6.0",
 		"@typescript-eslint/parser": "^7.6.0",
 		"eslint": "8.57.0",
@@ -56,6 +60,7 @@
 		"lint-staged": "^15.2.2",
 		"meow": "^9.0.0",
 		"nuxt-typed-router": "^3.6.3",
+		"nuxt3-leaflet": "^1.0.12",
 		"prettier": "^3.2.5",
 		"prettier-plugin-organize-imports": "^3.2.4",
 		"prettier-plugin-tailwindcss": "^0.5.13",
