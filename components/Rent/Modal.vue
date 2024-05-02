@@ -61,7 +61,7 @@ const onSubmit = () => {
 		@close="onClose"
 	>
 		<!-- === Category === -->
-		<div v-if="step === STEPS.CATEGORY">
+		<div v-if="step === STEPS.CATEGORY" class="flex flex-col gap-8">
 			<AppHeading
 				title="Which of these best describes your place?"
 				subtitle="Pick a category"
@@ -82,25 +82,29 @@ const onSubmit = () => {
 		</div>
 
 		<!-- === Location === -->
-		<div v-if="step === STEPS.LOCATION">
+		<div v-if="step === STEPS.LOCATION" class="flex flex-col gap-8">
 			<AppHeading
 				title="Where is your place located?"
-				subtitle="help guests find you"
+				subtitle="Help guests find you"
 			/>
 
-			<VSelect v-model="location" name="location" :options="countries">
-				<template #option="country">
-					<div class="flex items-center gap-3 text-lg">
-						// @ts-ignore
-						<div>{{ country.flag }}</div>
-						<div>
-							{{ country.label }}
+			<ClientOnly>
+				<VSelect v-model="location" name="location" :options="countries">
+					<template #option="country">
+						<div class="flex items-center gap-3 text-lg">
+							<div>{{ country.flag }}</div>
+							<div>
+								{{ country.label }}
 
-							<span class="ml-1 text-neutral-500">{{ country.region }}</span>
+								<span class="ml-1 text-neutral-500">{{ country.region }}</span>
+							</div>
 						</div>
-					</div>
-				</template>
-			</VSelect>
+					</template>
+				</VSelect>
+			</ClientOnly>
+			<ClientOnly>
+				<RentMap :center="location?.latlng" />
+			</ClientOnly>
 		</div>
 
 		<!-- === Actions === -->
