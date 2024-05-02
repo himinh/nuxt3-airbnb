@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const isLoggedIn = ref(true);
+const user = ref();
+const { onOpen } = useLogin();
 </script>
 
 <template>
@@ -35,7 +36,7 @@ const isLoggedIn = ref(true);
 				</DropdownMenuTrigger>
 
 				<DropdownMenuContent class="w-56" align="end">
-					<template v-if="isLoggedIn">
+					<template v-if="user">
 						<DropdownMenuItem>My trips</DropdownMenuItem>
 						<DropdownMenuItem>Reservations</DropdownMenuItem>
 						<DropdownMenuItem>My Favorites</DropdownMenuItem>
@@ -49,8 +50,10 @@ const isLoggedIn = ref(true);
 					</template>
 
 					<template v-else>
-						<DropdownMenuItem>Register</DropdownMenuItem>
-						<DropdownMenuItem>Login</DropdownMenuItem>
+						<DropdownMenuItem @click="onOpen('register')"
+							>Register</DropdownMenuItem
+						>
+						<DropdownMenuItem @click="onOpen('login')">Login</DropdownMenuItem>
 					</template>
 				</DropdownMenuContent>
 			</DropdownMenu>

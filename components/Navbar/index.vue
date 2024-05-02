@@ -16,7 +16,7 @@
 				</div>
 			</AppContainer>
 		</div>
+
+		<NavbarCategories />
 	</div>
 </template>
-
-<style lang="css" scoped></style>
