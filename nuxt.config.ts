@@ -9,6 +9,7 @@ export default defineNuxtConfig({
 		'@pinia/nuxt',
 		'nuxt-icon',
 		'nuxt3-leaflet',
+		'@vueuse/nuxt',
 	],
 
 	shadcn: {

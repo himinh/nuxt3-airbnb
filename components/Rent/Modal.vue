@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { InputHTMLAttributes } from 'vue';
 import VSelect from 'vue-select';
 import type { Country } from '~/types/country.type';
 import { Categories } from '~/utils/constants';
 
-const { onClose, isOpen, countries, getCountryByValue } = useRentModal();
+const { onClose, isOpen, countries } = useRentModal();
 
 const STEPS = reactive({
 	CATEGORY: 0,
@@ -20,6 +21,7 @@ const location = ref<null | Country>(null);
 const guestCount = ref(1);
 const roomCount = ref(1);
 const bathroomCount = ref(1);
+const imageFile = ref<File | undefined>();
 
 const actionLabel = computed(() => {
 	if (step.value === STEPS.PRICE) {
@@ -45,6 +47,34 @@ const onNext = () => {
 	step.value = step.value + 1;
 };
 
+const fileInput = ref<HTMLInputElement | null>(null);
+const imageBlogUrl = useObjectUrl(imageFile);
+function onFileChange(event: Event) {
+	const inputElement = event.target as HTMLInputElement;
+
+	imageFile.value = inputElement.files?.[0];
+}
+
+// const dropZoneRef = ref<HTMLDivElement>();
+// const { files } = useDropZone(dropZoneRef, {
+// 	onDrop,
+// 	dataTypes: [
+// 		'image/jpeg',
+// 		'image/png',
+// 		'image/gif',
+// 		'image/webp',
+// 		'image/jpg',
+// 	],
+// });
+
+// function onDrop() {
+// 	if (files.value) {
+// 		files.value.forEach((file) => {
+// 			console.log(file);
+// 		});
+// 	}
+// }
+
 const onSubmit = () => {
 	try {
 		isLoading.value = true;
@@ -61,6 +91,7 @@ const onSubmit = () => {
 		v-if="isOpen"
 		:is-open="isOpen"
 		title="Airbnb your home"
+		description="Help guests get to know you"
 		@close="onClose"
 	>
 		<!-- === Category === -->
@@ -151,6 +182,40 @@ const onSubmit = () => {
 					}
 				"
 			/>
+		</div>
+
+		<!-- === Images === -->
+		<div v-if="step === STEPS.IMAGES" class="flex flex-col gap-8">
+			<AppHeading
+				title="Add a photo of your place"
+				subtitle="Show guests what your place looks like!"
+			/>
+
+			<div
+				class="relative flex cursor-pointer flex-col items-center justify-center gap-4 border-2 border-dashed border-neutral-300 p-20 text-neutral-600 transition hover:opacity-70"
+				@click="fileInput?.click"
+			>
+				<input
+					ref="fileInput"
+					type="file"
+					class="hidden"
+					accept="image/*"
+					@change="onFileChange"
+				/>
+
+				<Icon v-if="!imageBlogUrl" name="lucide:image" size="50" />
+				<div v-if="!imageBlogUrl" class="text-lg font-semibold">
+					Click to upload
+				</div>
+
+				<div v-else class="absolute inset-0 h-full w-full">
+					<img
+						:src="imageBlogUrl"
+						alt="House"
+						class="text h-full w-full object-cover"
+					/>
+				</div>
+			</div>
 		</div>
 
 		<!-- === Actions === -->
