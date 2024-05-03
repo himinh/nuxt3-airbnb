@@ -17,6 +17,9 @@ const isLoading = ref(false);
 const step = ref(STEPS.CATEGORY);
 const category = ref('');
 const location = ref<null | Country>(null);
+const guestCount = ref(1);
+const roomCount = ref(1);
+const bathroomCount = ref(1);
 
 const actionLabel = computed(() => {
 	if (step.value === STEPS.PRICE) {
@@ -105,6 +108,49 @@ const onSubmit = () => {
 			<ClientOnly>
 				<RentMap :center="location?.latlng" />
 			</ClientOnly>
+		</div>
+
+		<!-- === Info === -->
+		<div v-if="step === STEPS.INFO" class="flex flex-col gap-8">
+			<AppHeading
+				title="Share some basic info about your place"
+				subtitle="What amenitis do you have?"
+			/>
+
+			<RentCounter
+				title="Guests"
+				subtitle="How many guests do you allow?"
+				:value="guestCount"
+				@change="
+					(val) => {
+						guestCount = val;
+					}
+				"
+			/>
+			<hr />
+
+			<RentCounter
+				title="Rooms"
+				subtitle="How many room do you have?"
+				:value="roomCount"
+				@change="
+					(val) => {
+						roomCount = val;
+					}
+				"
+			/>
+			<hr />
+
+			<RentCounter
+				title="Bathrooms"
+				subtitle="How many bathrooms do you have?"
+				:value="bathroomCount"
+				@change="
+					(val) => {
+						bathroomCount = val;
+					}
+				"
+			/>
 		</div>
 
 		<!-- === Actions === -->
