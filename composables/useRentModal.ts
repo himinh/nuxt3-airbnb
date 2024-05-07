@@ -1,6 +1,6 @@
 import countries from 'world-countries';
 export const useRentModal = () => {
-	const isOpen = useState('rentModal', () => true);
+	const isOpen = useState('rentModal', () => false);
 	const formattedCountries = useState('countries', () => {
 		return countries.map((country) => ({
 			value: country.cca2,

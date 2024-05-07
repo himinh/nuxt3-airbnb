@@ -12,6 +12,7 @@
 
 		<AuthLogin />
 		<RentModal />
+		<AvatarUpload />
 	</div>
 </template>
 

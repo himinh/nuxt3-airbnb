@@ -1,9 +1,9 @@
-<script setup lang="ts">
-definePageMeta({
-	layout: 'dashboard',
-});
-</script>
+<script setup lang="ts"></script>
 
 <template>
-	<div>Search page</div>
+	<div class="flex justify-center">
+		<div class="h-[300px] w-[400px]">
+			<UploadAvatar />
+		</div>
+	</div>
 </template>

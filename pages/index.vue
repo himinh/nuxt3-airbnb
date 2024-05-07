@@ -1,7 +1,34 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { listings, type SafeListing } from '~/types/listing.type';
+
+const { pending, data } = useAsyncData('listings', () => {
+	const getListings = (): Promise<SafeListing[]> => {
+		return new Promise((resolve) => {
+			setTimeout(() => resolve(listings), 3000);
+		});
+	};
+
+	return getListings();
+});
+</script>
 
 <template>
-	<div>Page</div>
-</template>
+	<AppContainer>
+		<AppEmptyState v-if="!data?.length" :show-reset="true" />
+		<div
+			class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+		>
+			<template v-if="!pending">
+				<ListingCardItem
+					v-for="listing in data"
+					:key="listing.id"
+					:data="listing"
+				/>
+			</template>
 
-<style lang="scss" scoped></style>
+			<template v-else>
+				<ListingLoader v-for="i in 10" :key="i" />
+			</template>
+		</div>
+	</AppContainer>
+</template>

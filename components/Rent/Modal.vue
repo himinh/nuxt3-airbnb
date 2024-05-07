@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type { InputHTMLAttributes } from 'vue';
+import { useForm } from 'vee-validate';
 import VSelect from 'vue-select';
 import type { Country } from '~/types/country.type';
 import { Categories } from '~/utils/constants';
+import { createDescriptionSchema } from '~/validations/rent.validation';
 
 const { onClose, isOpen, countries } = useRentModal();
 
@@ -22,6 +23,9 @@ const guestCount = ref(1);
 const roomCount = ref(1);
 const bathroomCount = ref(1);
 const imageFile = ref<File | undefined>();
+const title = ref('');
+const description = ref('');
+const price = ref(10);
 
 const actionLabel = computed(() => {
 	if (step.value === STEPS.PRICE) {
@@ -55,29 +59,27 @@ function onFileChange(event: Event) {
 	imageFile.value = inputElement.files?.[0];
 }
 
-// const dropZoneRef = ref<HTMLDivElement>();
-// const { files } = useDropZone(dropZoneRef, {
-// 	onDrop,
-// 	dataTypes: [
-// 		'image/jpeg',
-// 		'image/png',
-// 		'image/gif',
-// 		'image/webp',
-// 		'image/jpg',
-// 	],
-// });
-
-// function onDrop() {
-// 	if (files.value) {
-// 		files.value.forEach((file) => {
-// 			console.log(file);
-// 		});
-// 	}
-// }
-
 const onSubmit = () => {
+	if (step.value !== STEPS.PRICE) {
+		return onNext();
+	}
+
 	try {
 		isLoading.value = true;
+		console.log({
+			title: title.value,
+			description: description.value,
+			price: price.value,
+			imageFile: imageFile.value,
+			category: category.value,
+			locationValue: location.value,
+			guestCount: guestCount.value,
+			roomCount: roomCount.value,
+			bathroomCount: bathroomCount.value,
+		});
+
+		refreshNuxtData('listings');
+		onClose();
 	} catch (error) {
 		// TODO
 	}
@@ -91,7 +93,7 @@ const onSubmit = () => {
 		v-if="isOpen"
 		:is-open="isOpen"
 		title="Airbnb your home"
-		description="Help guests get to know you"
+		description=""
 		@close="onClose"
 	>
 		<!-- === Category === -->
@@ -126,11 +128,13 @@ const onSubmit = () => {
 				<VSelect v-model="location" name="location" :options="countries">
 					<template #option="country">
 						<div class="flex items-center gap-3 text-lg">
-							<div>{{ country.flag }}</div>
+							<div>{{ (country as any).flag }}</div>
 							<div>
-								{{ country.label }}
+								{{ (country as any).label }}
 
-								<span class="ml-1 text-neutral-500">{{ country.region }}</span>
+								<span class="ml-1 text-neutral-500">{{
+									(country as any).region
+								}}</span>
 							</div>
 						</div>
 					</template>
@@ -218,6 +222,57 @@ const onSubmit = () => {
 			</div>
 		</div>
 
+		<!-- === Description === -->
+		<div v-if="step === STEPS.DESCRIPTION" class="flex flex-col gap-8">
+			<AppHeading
+				title="How would you describe your place?"
+				subtitle="Short and sweet works best!"
+			/>
+
+			<FormField v-slot="{ componentField }" name="title">
+				<FormItem>
+					<FormLabel>Title</FormLabel>
+					<FormControl>
+						<Input
+							type="text"
+							placeholder="Eg: My lovely apt"
+							v-bind="componentField"
+						/>
+					</FormControl>
+				</FormItem>
+			</FormField>
+
+			<hr />
+			<FormField v-slot="{ componentField }" name="description">
+				<FormItem>
+					<FormLabel>Description</FormLabel>
+					<FormControl>
+						<Textarea
+							placeholder="Enter your description"
+							v-bind="componentField"
+						/>
+					</FormControl>
+				</FormItem>
+			</FormField>
+		</div>
+
+		<!-- === Price === -->
+		<div v-if="step === STEPS.PRICE" class="flex flex-col gap-8">
+			<AppHeading
+				title="Now, set your pricce?"
+				subtitle="How much do you charge per night?"
+			/>
+
+			<FormField v-slot="{ componentField }" name="price">
+				<FormItem>
+					<FormLabel>Price</FormLabel>
+					<FormControl>
+						<Input type="number" placeholder="Eg: 10" v-bind="componentField" />
+					</FormControl>
+				</FormItem>
+			</FormField>
+		</div>
+
 		<!-- === Actions === -->
 		<div class="flex flex-col gap-2 py-6">
 			<div class="flex w-full items-center gap-4">
@@ -236,7 +291,7 @@ const onSubmit = () => {
 					:disabled="isLoading"
 					type="button"
 					class="flex-1"
-					@click="onNext"
+					@click="onSubmit"
 				>
 					{{ actionLabel }}
 				</Button>
