@@ -4,7 +4,7 @@ import { listings, type SafeListing } from '~/types/listing.type';
 const { pending, data } = useAsyncData('listings', () => {
 	const getListings = (): Promise<SafeListing[]> => {
 		return new Promise((resolve) => {
-			setTimeout(() => resolve(listings), 3000);
+			setTimeout(() => resolve(listings), 1000);
 		});
 	};
 
@@ -14,7 +14,7 @@ const { pending, data } = useAsyncData('listings', () => {
 
 <template>
 	<AppContainer>
-		<AppEmptyState v-if="!data?.length" :show-reset="true" />
+		<AppEmptyState v-if="!data?.length && !pending" :show-reset="true" />
 		<div
 			class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
 		>

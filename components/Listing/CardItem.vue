@@ -29,7 +29,7 @@ const props = defineProps<ListingCardProps>();
 				/>
 
 				<div class="absolute right-3 top-3">
-					<AppHeart />
+					<AppHeart :listing-id="data.id" />
 				</div>
 			</div>
 
