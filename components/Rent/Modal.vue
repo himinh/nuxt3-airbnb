@@ -2,7 +2,7 @@
 import { useForm } from 'vee-validate';
 import VSelect from 'vue-select';
 import type { Country } from '~/types/country.type';
-import { Categories } from '~/utils/constants';
+import { categoryData } from '~/utils/constants';
 import { createDescriptionSchema } from '~/validations/rent.validation';
 
 const { onClose, isOpen, countries } = useRentModal();
@@ -106,7 +106,7 @@ const onSubmit = () => {
 			<div
 				class="grid max-h-[50vh] grid-cols-1 gap-3 overflow-y-auto md:grid-cols-2"
 			>
-				<div v-for="item in Categories" :key="item.icon" class="col-span-1">
+				<div v-for="item in categoryData" :key="item.icon" class="col-span-1">
 					<RentCategoryInput
 						:label="item.label"
 						:icon="item.icon"

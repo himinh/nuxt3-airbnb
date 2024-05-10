@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Categories } from '~/utils/constants';
+import { categoryData } from '~/utils/constants';
 
 const category = computed(() => useRoute().query.category);
 </script>
@@ -8,7 +8,7 @@ const category = computed(() => useRoute().query.category);
 	<AppContainer>
 		<div class="flex items-center justify-between overflow-x-auto pt-4">
 			<NavbarCategory
-				v-for="item in Categories"
+				v-for="item in categoryData"
 				:key="item.icon"
 				:icon="item.icon"
 				:label="item.label"
