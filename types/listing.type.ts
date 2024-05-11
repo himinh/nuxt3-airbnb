@@ -16,6 +16,11 @@ export type SafeListing = {
 	bathroomCount: number;
 };
 
+export type Range = {
+	start: Date;
+	end: Date;
+};
+
 export const listings: SafeListing[] = [
 	{
 		user: {

@@ -10,6 +10,7 @@ export default defineNuxtConfig({
 		'nuxt-icon',
 		'nuxt3-leaflet',
 		'@vueuse/nuxt',
+		'@samk-dev/nuxt-vcalendar',
 	],
 
 	shadcn: {

@@ -17,7 +17,10 @@ const props = defineProps<ListingCardProps>();
 </script>
 
 <template>
-	<Card class="group col-span-1 cursor-pointer rounded-xl border-0 shadow-none">
+	<Card
+		class="group col-span-1 cursor-pointer rounded-xl border-0 shadow-none"
+		@click="navigateTo(`/listings/${data.id}`)"
+	>
 		<CardContent class="grid gap-4 p-0">
 			<div
 				class="relative aspect-square h-[200px] w-full overflow-hidden rounded-xl"
