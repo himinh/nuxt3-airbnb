@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { onOpen } = useSearch();
+</script>
 
 <template>
 	<div class="fixed z-10 w-full bg-white shadow-sm">
@@ -9,7 +11,7 @@
 					<NavbarLogo />
 
 					<!-- Search -->
-					<NavbarSearch />
+					<NavbarSearch @click="onOpen" />
 
 					<!-- User menu -->
 					<NavbarUserMenu />

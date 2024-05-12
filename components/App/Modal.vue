@@ -24,9 +24,11 @@ const isModalOpen = computed({
 		<DialogContent>
 			<DialogHeader class="flex flex-col items-center justify-center">
 				<DialogTitle v-if="title" class="text-xl">{{ title }}</DialogTitle>
-				<DialogDescription v-if="description">{{
-					description
-				}}</DialogDescription>
+				<DialogDescription>
+					<template v-if="description">
+						{{ description }}
+					</template>
+				</DialogDescription>
 			</DialogHeader>
 			<slot />
 		</DialogContent>

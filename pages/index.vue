@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { listings, type SafeListing } from '~/types/listing.type';
 
+const route = useRoute();
+
+// @ts-ignore
+const query = computed(() => new URLSearchParams(route.query).toString());
+
 const { pending, data } = useAsyncData('listings', () => {
+	console.log({ query: query.value });
 	const getListings = (): Promise<SafeListing[]> => {
 		return new Promise((resolve) => {
 			setTimeout(() => resolve(listings), 1000);
@@ -10,6 +16,13 @@ const { pending, data } = useAsyncData('listings', () => {
 
 	return getListings();
 });
+
+watch(
+	() => route.query,
+	async () => {
+		await refreshNuxtData('listings');
+	}
+);
 </script>
 
 <template>

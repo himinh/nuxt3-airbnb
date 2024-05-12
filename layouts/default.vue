@@ -13,6 +13,7 @@
 		<AuthLogin />
 		<RentModal />
 		<AvatarUpload />
+		<ListingSearch />
 	</div>
 </template>
 

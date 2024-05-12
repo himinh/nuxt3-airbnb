@@ -20,7 +20,9 @@ export const useRentModal = () => {
 	};
 
 	const getCountryByValue = (value: string) => {
-		return formattedCountries.value.find((item) => item.value === value);
+		const res = formattedCountries.value.find((item) => item.value === value);
+
+		return res;
 	};
 
 	return {
