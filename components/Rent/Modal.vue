@@ -234,6 +234,8 @@ const onSubmit = () => {
 					<FormLabel>Title</FormLabel>
 					<FormControl>
 						<Input
+							v-model="title"
+							:disabled="isLoading"
 							type="text"
 							placeholder="Eg: My lovely apt"
 							v-bind="componentField"
@@ -248,6 +250,8 @@ const onSubmit = () => {
 					<FormLabel>Description</FormLabel>
 					<FormControl>
 						<Textarea
+							v-model="description"
+							:disabled="isLoading"
 							placeholder="Enter your description"
 							v-bind="componentField"
 						/>

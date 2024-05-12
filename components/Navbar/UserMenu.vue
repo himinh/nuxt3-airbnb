@@ -45,10 +45,12 @@ const { onOpen: openRentModal } = useRentModal();
 						<DropdownMenuItem @click="navigateTo('/reservations')">
 							Reservations
 						</DropdownMenuItem>
-						<DropdownMenuItem @click="navigateTo('/favorites')"
-							>My Favorites</DropdownMenuItem
-						>
-						<DropdownMenuItem>My Properties</DropdownMenuItem>
+						<DropdownMenuItem @click="navigateTo('/favorites')">
+							My Favorites
+						</DropdownMenuItem>
+						<DropdownMenuItem @click="navigateTo('/properties')">
+							My Properties
+						</DropdownMenuItem>
 						<DropdownMenuItem @click="openRentModal">
 							Airbnb your home
 						</DropdownMenuItem>
