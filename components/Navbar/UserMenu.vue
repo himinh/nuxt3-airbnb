@@ -39,27 +39,33 @@ const { onOpen: openRentModal } = useRentModal();
 
 				<DropdownMenuContent class="w-56" align="end">
 					<template v-if="user">
-						<DropdownMenuItem>My trips</DropdownMenuItem>
-						<DropdownMenuItem>Reservations</DropdownMenuItem>
-						<DropdownMenuItem>My Favorites</DropdownMenuItem>
-						<DropdownMenuItem>My Properties</DropdownMenuItem>
-						<DropdownMenuItem @click="openRentModal"
-							>Airbnb your home</DropdownMenuItem
+						<DropdownMenuItem @click="navigateTo('/trips')">
+							My trips
+						</DropdownMenuItem>
+						<DropdownMenuItem @click="navigateTo('/reservations')">
+							Reservations
+						</DropdownMenuItem>
+						<DropdownMenuItem @click="navigateTo('/favorites')"
+							>My Favorites</DropdownMenuItem
 						>
+						<DropdownMenuItem>My Properties</DropdownMenuItem>
+						<DropdownMenuItem @click="openRentModal">
+							Airbnb your home
+						</DropdownMenuItem>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem>
 							<Icon name="lucide:log-out" class="mr-2" size="16" />
-							Logout</DropdownMenuItem
-						>
+							Logout
+						</DropdownMenuItem>
 					</template>
 
 					<template v-else>
-						<DropdownMenuItem @click="openLoginModal('register')"
-							>Register</DropdownMenuItem
-						>
-						<DropdownMenuItem @click="openLoginModal('login')"
-							>Login</DropdownMenuItem
-						>
+						<DropdownMenuItem @click="openLoginModal('register')">
+							Register
+						</DropdownMenuItem>
+						<DropdownMenuItem @click="openLoginModal('login')">
+							Login
+						</DropdownMenuItem>
 					</template>
 				</DropdownMenuContent>
 			</DropdownMenu>

@@ -1,19 +1,43 @@
 <script setup lang="ts">
-const { getCountryByValue } = useRentModal();
-import type { SafeListing } from '~/types/listing.type';
+import { format } from 'date-fns';
+import { ReloadIcon } from '@radix-icons/vue';
+import type { SafeListing, SafeReservation } from '~/types/listing.type';
 
 interface ListingCardProps {
 	data: SafeListing;
 	disabled?: boolean;
 	actionLabel?: string;
 	actionId?: string;
+	reservation?: SafeReservation;
 }
+
+const { getCountryByValue } = useRentModal();
 
 const location = toRef(
 	computed(() => getCountryByValue(props.data.locationValue))
 );
 
 const props = defineProps<ListingCardProps>();
+
+const reservationDate = computed(() => {
+	if (props.reservation) {
+		const start = new Date(props.reservation.start);
+		const end = new Date(props.reservation.end);
+
+		return format(start, 'PP') + ' - ' + format(end, 'PP');
+	}
+
+	return null;
+});
+
+const emits = defineEmits(['onAction']);
+const handleCancel = (e: MouseEvent) => {
+	e.stopPropagation();
+
+	if (props.disabled) return;
+
+	emits('onAction', props.actionId);
+};
 </script>
 
 <template>
@@ -41,12 +65,23 @@ const props = defineProps<ListingCardProps>();
 			</div>
 
 			<div class="line-clamp-1 font-light text-neutral-500">
-				{{ data.category }}
+				{{ reservationDate || data.category }}
 			</div>
 
 			<div class="flex flex-row items-center gap-1">
 				<div class="font-semibold">${{ data.price }}</div>
 			</div>
 		</CardContent>
+
+		<CardFooter
+			v-if="actionLabel"
+			:disabled="disabled"
+			class="w-full justify-between border-0 p-0 pt-2"
+		>
+			<Button variant="destructive" class="w-full" @click="handleCancel">
+				<ReloadIcon v-if="disabled" class="mr-2 h-4 w-4 animate-spin" />
+				{{ actionLabel }}
+			</Button>
+		</CardFooter>
 	</Card>
 </template>

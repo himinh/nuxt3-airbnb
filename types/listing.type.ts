@@ -21,6 +21,12 @@ export type Range = {
 	end: Date;
 };
 
+export type SafeReservation = Range & {
+	listing: SafeListing;
+	createdAt: Date;
+	id: string;
+};
+
 export const listings: SafeListing[] = [
 	{
 		user: {
@@ -263,5 +269,29 @@ export const listings: SafeListing[] = [
 		guestCount: 6,
 		roomCount: 3,
 		bathroomCount: 2,
+	},
+];
+
+export const reservations: SafeReservation[] = [
+	{
+		id: new Date().getTime().toString(),
+		createdAt: new Date(new Date().setDate(2)),
+		start: new Date(new Date().setDate(2)),
+		end: new Date(new Date().setDate(2)),
+		listing: listings[0],
+	},
+	{
+		id: new Date().setHours(12, 0, 0).toString(),
+		createdAt: new Date(new Date().setDate(5)),
+		start: new Date(new Date().setDate(5)),
+		end: new Date(new Date().setDate(5)),
+		listing: listings[1],
+	},
+	{
+		id: new Date().setHours(1).toString(),
+		createdAt: new Date(),
+		start: new Date(),
+		end: new Date(),
+		listing: listings[2],
 	},
 ];

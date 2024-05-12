@@ -23,7 +23,7 @@ export const useFavorite = ({ listingId }: FavoriteProps) => {
 				favoriteIds.splice(favoriteIds.indexOf(listingId), 1);
 			}
 
-			refreshNuxtData('listings');
+			refreshNuxtData(['listings', 'favorites']);
 			console.log({ favoriteIds });
 		});
 	};
