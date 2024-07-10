@@ -64,6 +64,7 @@ const queryStringToObject = (query: string) =>
 	);
 
 const onSubmit = () => {
+	console.log({ step });
 	if (step.value !== STEPS.INFO) {
 		return onNext();
 	}

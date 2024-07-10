@@ -19,6 +19,6 @@ const { onOpen } = useSearch();
 			</AppContainer>
 		</div>
 
-		<NavbarCategories />
+		<CategoryList />
 	</div>
 </template>

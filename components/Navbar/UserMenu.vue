@@ -1,7 +1,13 @@
 <script setup lang="ts">
-const user = ref({});
+const authStore = useAuthStore();
+const { authUser } = storeToRefs(authStore);
+
 const { onOpen: openLoginModal } = useLogin();
 const { onOpen: openRentModal } = useRentModal();
+const onLogout = () => {
+	useRouter().push({ query: { ...useRoute().query, auth: 'login' } });
+	authStore.logout();
+};
 </script>
 
 <template>
@@ -38,7 +44,7 @@ const { onOpen: openRentModal } = useRentModal();
 				</DropdownMenuTrigger>
 
 				<DropdownMenuContent class="w-56" align="end">
-					<template v-if="user">
+					<template v-if="authUser">
 						<DropdownMenuItem @click="navigateTo('/trips')">
 							My trips
 						</DropdownMenuItem>
@@ -55,7 +61,7 @@ const { onOpen: openRentModal } = useRentModal();
 							Airbnb your home
 						</DropdownMenuItem>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>
+						<DropdownMenuItem @click="onLogout">
 							<Icon name="lucide:log-out" class="mr-2" size="16" />
 							Logout
 						</DropdownMenuItem>

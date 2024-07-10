@@ -35,7 +35,6 @@ export class HttpClient {
 		const onRequest = async ({ options }: any) => {
 			const authStore = useAuthStore();
 			const token = await authStore.getAccessToken();
-
 			if (token)
 				options.headers = {
 					...options.headers,

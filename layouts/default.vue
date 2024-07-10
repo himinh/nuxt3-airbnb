@@ -1,4 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const authStore = useAuthStore();
+const { authUser } = storeToRefs(authStore);
+</script>
 
 <template>
 	<div>
@@ -10,7 +13,7 @@
 			<slot />
 		</main>
 
-		<AuthLogin />
+		<AuthLogin v-if="!authUser" />
 		<RentModal />
 		<AvatarUpload />
 		<ListingSearch />

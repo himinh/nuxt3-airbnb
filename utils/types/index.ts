@@ -1,4 +1,4 @@
-export type SearchParams = Record<string, string | number>;
+export type SearchParams = Record<string, any>;
 
 export type MethodType = 'get' | 'post' | 'delete' | 'patch' | 'put';
 

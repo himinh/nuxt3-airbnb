@@ -6,8 +6,12 @@ const route = useRoute();
 // @ts-ignore
 const query = computed(() => new URLSearchParams(route.query).toString());
 
+// const { data: listingData } = useAsyncData('listing-datas', () => {
+// 	console.log(query.value);
+// 	return listingApi.paginate({});
+// });
+
 const { pending, data } = useAsyncData('listings', () => {
-	console.log({ query: query.value });
 	const getListings = (): Promise<SafeListing[]> => {
 		return new Promise((resolve) => {
 			setTimeout(() => resolve(listings), 1000);
@@ -20,6 +24,7 @@ const { pending, data } = useAsyncData('listings', () => {
 watch(
 	() => route.query,
 	async () => {
+		// console.log(listingData);
 		await refreshNuxtData('listings');
 	}
 );

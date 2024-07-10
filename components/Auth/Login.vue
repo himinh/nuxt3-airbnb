@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate';
 import { RegisterSchema, LoginSchema } from '~/validations/auth.validation';
-import { useToast } from '../ui/toast';
+import { AccountTypeEnum } from '~/utils/enums';
+import { toast } from '../ui/toast';
 
-const { onClose, onOpen } = useLogin();
+const authStore = useAuthStore();
 const route = useRoute();
+const router = useRouter();
+
+const { loading, authUser } = storeToRefs(authStore);
+const { onClose, onOpen } = useLogin();
 
 const isOpen = computed(() => Boolean(route.query.auth));
 const isRegister = computed(() => route.query.auth === 'register');
@@ -16,8 +21,35 @@ const { isFieldDirty, handleSubmit } = useForm({
 	validationSchema: formSchema,
 });
 
-const onSubmit = handleSubmit((values) => {
-	console.log(values);
+const onSubmit = handleSubmit(async (formValue) => {
+	if (isRegister.value) {
+		const input = {
+			email: formValue.email,
+			password: formValue.password,
+			accountType: AccountTypeEnum.Local,
+			fullName: (formValue as any).name,
+		};
+
+		await authStore.register(input);
+	} else {
+		await authStore.login({
+			authKey: formValue.email,
+			password: formValue.password,
+		});
+	}
+
+	// check login/register success
+	if (authUser.value) {
+		const { auth, ...rest } = route.query;
+
+		router.replace({ query: rest });
+
+		toast({
+			description: `Welcome back, ${authUser.value?.user.fullName}!`,
+			class: 'bg-green-600 text-white border-green-600',
+			duration: 1000,
+		});
+	}
 });
 </script>
 
@@ -58,6 +90,7 @@ const onSubmit = handleSubmit((values) => {
 					name="email"
 					:validate-on-blur="!isFieldDirty"
 				>
+					{{ authUser }}
 					<FormItem>
 						<FormLabel>Email</FormLabel>
 						<FormControl>
@@ -102,8 +135,16 @@ const onSubmit = handleSubmit((values) => {
 			<!-- Other -->
 			<div class="flex flex-col gap-2 py-6">
 				<div class="flex w-full flex-row items-center gap-4">
-					<Button type="submit" class="w-full" disabled>
-						<Icon name="lucide:loader" class="mr-2 h-4 w-4 animate-spin" />
+					<Button
+						type="submit"
+						class="user-select-none w-full"
+						:disabled="loading"
+					>
+						<Icon
+							v-if="loading"
+							name="lucide:loader"
+							class="mr-2 h-4 w-4 animate-spin"
+						/>
 						{{ isRegister ? 'Register' : 'Login' }}
 					</Button>
 				</div>

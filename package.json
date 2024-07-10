@@ -10,7 +10,7 @@
 		"postinstall": "nuxt prepare",
 		"prepare": "husky",
 		"clean": "rm -rf .nuxt dist .output",
-		"lint:eslint": "eslint .",
+		"lint:eslint": "eslint . ",
 		"lint:prettier": "prettier . --ignore-path .eslintignore --check",
 		"lint": "pnpm lint:eslint && pnpm lint:prettier",
 		"format": "prettier --list-different . --ignore-path .eslintignore --write",
@@ -71,8 +71,7 @@
 	},
 	"lint-staged": {
 		"**/*.{js,ts,vue,html}": [
-			"pnpm lint:fix",
-			"commitlint --config .commitlintrc.json --from=HEAD~1 --to=HEAD"
+			"pnpm lint"
 		]
 	},
 	"husky": {

@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<style>
+			.container {
+				display: flex;
+				align-items: center;
+				overflow: hidden;
+			}
+
+			.items-wrapper {
+				overflow-x: scroll;
+				flex-grow: 1;
+				-ms-overflow-style: none; /* Internet Explorer 10+ */
+				scrollbar-width: 1px; /* Firefox */
+				/* scroll color */
+				scrollbar-color: #007bff #ffffff;
+				/* scroll size */
+				scrollbar-width: thin;
+			}
+
+			.items-wrapper::-webkit-scrollbar {
+				display: none; /* Safari and Chrome */
+			}
+
+			.items {
+				display: flex;
+			}
+
+			.item {
+				flex-shrink: 0;
+				width: 200px; /* Adjust based on your design */
+				text-align: center;
+			}
+
+			.nav-btn {
+				background-color: #007bff;
+				color: white;
+				border: none;
+				padding: 10px;
+				cursor: pointer;
+			}
+
+			.nav-btn:disabled {
+				background-color: #cccccc;
+				cursor: not-allowed;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<button id="prev" class="nav-btn" style="display: none">Prev</button>
+			<div class="items-wrapper">
+				<div class="items">
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 1</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 1"
+						/>
+					</div>
+					<div class="item">
+						<span>Item 2</span
+						><img
+							src="https://a0.muscache.com/pictures/3fb523a0-b622-4368-8142-b5e03df7549b.jpg"
+							alt="Image 2"
+						/>
+					</div>
+					<!-- Add more items as needed -->
+				</div>
+			</div>
+			<button id="next" class="nav-btn">Next</button>
+		</div>
+
+		<script>
+			const prevBtn = document.getElementById('prev');
+			const nextBtn = document.getElementById('next');
+			const itemsWrapper = document.querySelector('.items-wrapper');
+			const items = document.querySelector('.items');
+
+			function updateButtons() {
+				const scrollLeft = itemsWrapper.scrollLeft;
+				const maxScrollLeft = items.scrollWidth - itemsWrapper.clientWidth;
+
+				prevBtn.style.display = scrollLeft > 0 ? 'block' : 'none';
+				nextBtn.style.display = scrollLeft < maxScrollLeft ? 'block' : 'none';
+			}
+
+			function scrollItems(direction) {
+				const wrapperWidth = itemsWrapper.clientWidth;
+
+				if (direction === 'next') {
+					itemsWrapper.scrollBy({ left: wrapperWidth, behavior: 'smooth' });
+				} else if (direction === 'prev') {
+					itemsWrapper.scrollBy({ left: -wrapperWidth, behavior: 'smooth' });
+				}
+			}
+
+			prevBtn.addEventListener('click', () => scrollItems('prev'));
+			nextBtn.addEventListener('click', () => scrollItems('next'));
+
+			itemsWrapper.addEventListener('scroll', updateButtons);
+			window.addEventListener('resize', updateButtons);
+
+			updateButtons();
+		</script>
+	</body>
+</html>

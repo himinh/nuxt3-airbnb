@@ -46,7 +46,7 @@ export default defineNuxtConfig({
 		replicateKey: '',
 		appUrl: '',
 		public: {
-			apiBase: '',
+			apiBase: 'http://localhost:8888/api',
 		},
 	},
 
