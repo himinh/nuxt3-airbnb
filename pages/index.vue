@@ -1,52 +1,51 @@
 <script setup lang="ts">
-import { listings, type SafeListing } from '~/types/listing.type';
+import { useInfiniteScroll } from '@vueuse/core';
 
-const route = useRoute();
+const listingStore = useListingStore();
 
-// @ts-ignore
-const query = computed(() => new URLSearchParams(route.query).toString());
+const listEl = ref<HTMLElement | null>(null);
 
-// const { data: listingData } = useAsyncData('listing-datas', () => {
-// 	console.log(query.value);
-// 	return listingApi.paginate({});
-// });
+const { listings, pending, isLoadMoreLoading, pageInfo } =
+  storeToRefs(listingStore);
 
-const { pending, data } = useAsyncData('listings', () => {
-	const getListings = (): Promise<SafeListing[]> => {
-		return new Promise((resolve) => {
-			setTimeout(() => resolve(listings), 1000);
-		});
-	};
-
-	return getListings();
-});
-
-watch(
-	() => route.query,
-	async () => {
-		// console.log(listingData);
-		await refreshNuxtData('listings');
-	}
+useInfiniteScroll(
+  listEl,
+  async () => {
+    await listingStore.loadMoreListings();
+  },
+  { distance: 2 },
 );
 </script>
 
 <template>
-	<AppContainer>
-		<AppEmptyState v-if="!data?.length && !pending" :show-reset="true" />
-		<div
-			class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-		>
-			<template v-if="!pending">
-				<ListingCardItem
-					v-for="listing in data"
-					:key="listing.id"
-					:data="listing"
-				/>
-			</template>
+  <AppContainer>
+    <AppEmptyState v-if="!listings?.length && !pending" :show-reset="true" />
 
-			<template v-else>
-				<ListingLoader v-for="i in 10" :key="i" />
-			</template>
-		</div>
-	</AppContainer>
+    <div
+      class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+    >
+      <template v-if="!pending">
+        <ListingCardItem
+          v-for="listing in listings"
+          :key="listing._id"
+          :data="listing"
+        />
+
+        <!-- Load more -->
+        <span
+          v-show="pageInfo?._hasNextPage && !isLoadMoreLoading"
+          ref="listEl"
+        ></span>
+
+        <!-- Loader -->
+        <template v-if="isLoadMoreLoading">
+          <ListingLoader v-for="i in 5" :key="i" />
+        </template>
+      </template>
+
+      <template v-else>
+        <ListingLoader v-for="i in 10" :key="i" />
+      </template>
+    </div>
+  </AppContainer>
 </template>

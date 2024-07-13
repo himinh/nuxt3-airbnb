@@ -3,69 +3,69 @@ import { toast } from '~/components/ui/toast';
 import { reservations, type SafeReservation } from '~/types/listing.type';
 
 const { pending, data } = useAsyncData('guestReservations', () => {
-	const getListings = (): Promise<SafeReservation[]> => {
-		return new Promise((resolve) => {
-			setTimeout(() => resolve(reservations), 1000);
-		});
-	};
+  const getListings = (): Promise<SafeReservation[]> => {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(reservations), 1000);
+    });
+  };
 
-	return getListings();
+  return getListings();
 });
 
 const isDeleting = ref(false);
 const deleteId = ref('');
 const cancelReservation = async (id: string) => {
-	isDeleting.value = true;
-	deleteId.value = id;
+  isDeleting.value = true;
+  deleteId.value = id;
 
-	const deleteReservation = (): Promise<boolean> => {
-		return new Promise((resolve) => {
-			setTimeout(() => resolve(true), 1000);
-		});
-	};
+  const deleteReservation = (): Promise<boolean> => {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(true), 1000);
+    });
+  };
 
-	await deleteReservation();
+  await deleteReservation();
 
-	data.value = reservations.filter((reservation) => reservation.id !== id);
+  data.value = reservations.filter((reservation) => reservation.id !== id);
 
-	toast({
-		description: 'Reservation canceled successfully',
-	});
+  toast({
+    description: 'Reservation canceled successfully',
+  });
 
-	isDeleting.value = false;
-	deleteId.value = '';
+  isDeleting.value = false;
+  deleteId.value = '';
 
-	return true;
+  return true;
 };
 </script>
 
 <template>
-	<AppEmptyState
-		v-if="!data?.length && !pending"
-		title="No reservations found"
-		subtitle="Looks like you haven't created any reservations yet"
-	/>
+  <AppEmptyState
+    v-if="!data?.length && !pending"
+    title="No reservations found"
+    subtitle="Looks like you haven't created any reservations yet"
+  />
 
-	<AppContainer v-else>
-		<div
-			class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-		>
-			<template v-if="pending"
-				><ListingLoader v-for="i in 10" :key="i"
-			/></template>
+  <AppContainer v-else>
+    <div
+      class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+    >
+      <template v-if="pending"
+        ><ListingLoader v-for="i in 10" :key="i"
+      /></template>
 
-			<template v-else>
-				<ListingCardItem
-					v-for="reservation in data"
-					:key="reservation.id"
-					:data="reservation.listing"
-					:reservation="reservation"
-					action-label="Cancel Reservation"
-					:action-id="reservation.id"
-					:disabled="isDeleting && deleteId === reservation.id"
-					@on-action="cancelReservation"
-				/>
-			</template>
-		</div>
-	</AppContainer>
+      <template v-else>
+        <ListingCardItem
+          v-for="reservation in data"
+          :key="reservation.id"
+          :data="reservation.listing"
+          :reservation="reservation"
+          action-label="Cancel Reservation"
+          :action-id="reservation.id"
+          :disabled="isDeleting && deleteId === reservation.id"
+          @on-action="cancelReservation"
+        />
+      </template>
+    </div>
+  </AppContainer>
 </template>

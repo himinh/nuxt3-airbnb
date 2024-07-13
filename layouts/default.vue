@@ -4,34 +4,34 @@ const { authUser } = storeToRefs(authStore);
 </script>
 
 <template>
-	<div>
-		<!-- === Navbar === -->
-		<Navbar />
+  <div>
+    <!-- === Navbar === -->
+    <Navbar />
 
-		<!-- === Main === -->
-		<main class="pb-20 pt-[220px]">
-			<slot />
-		</main>
+    <!-- === Main === -->
+    <main class="pb-20 pt-[220px]">
+      <slot />
+    </main>
 
-		<AuthLogin v-if="!authUser" />
-		<RentModal />
-		<AvatarUpload />
-		<ListingSearch />
-	</div>
+    <AuthLogin v-if="!authUser" />
+    <RentModal />
+    <AvatarUpload />
+    <ListingSearch />
+  </div>
 </template>
 
 <style>
 @import 'vue-select/dist/vue-select.css';
 
 :root {
-	--vs-dropdown-option--active-bg: #ffe4e6;
-	--vs-dropdown-option--active-color: #000;
+  --vs-dropdown-option--active-bg: #ffe4e6;
+  --vs-dropdown-option--active-color: #000;
 }
 /* .vs__selected {
 	@apply text-lg;
 } */
 
 .vs__dropdown-menu {
-	overflow-x: hidden;
+  overflow-x: hidden;
 }
 </style>

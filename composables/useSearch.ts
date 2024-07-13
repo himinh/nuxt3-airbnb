@@ -1,17 +1,17 @@
 export const useSearch = () => {
-	const isOpen = useState('filterModal', () => false);
+  const isOpen = useState('filterModal', () => false);
 
-	const onOpen = () => {
-		isOpen.value = true;
-	};
+  const onOpen = () => {
+    isOpen.value = true;
+  };
 
-	const onClose = () => {
-		isOpen.value = false;
-	};
+  const onClose = () => {
+    isOpen.value = false;
+  };
 
-	return {
-		onOpen,
-		onClose,
-		isOpen,
-	};
+  return {
+    onOpen,
+    onClose,
+    isOpen,
+  };
 };

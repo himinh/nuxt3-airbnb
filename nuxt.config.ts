@@ -1,58 +1,62 @@
 export default defineNuxtConfig({
-	devtools: { enabled: true },
+  devtools: { enabled: true },
 
-	modules: [
-		'@nuxtjs/eslint-module',
-		'@nuxtjs/tailwindcss',
-		'shadcn-nuxt',
-		'nuxt-typed-router',
-		'@pinia/nuxt',
-		'nuxt-icon',
-		'nuxt3-leaflet',
-		'@vueuse/nuxt',
-		'@samk-dev/nuxt-vcalendar',
-	],
+  modules: [
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/tailwindcss',
+    'shadcn-nuxt',
+    'nuxt-typed-router',
+    '@pinia/nuxt',
+    'nuxt-icon',
+    'nuxt3-leaflet',
+    '@vueuse/nuxt',
+    '@samk-dev/nuxt-vcalendar',
+  ],
 
-	shadcn: {
-		prefix: '',
-		componentDir: './components/ui',
-	},
+  imports: {
+    dirs: ['stores'],
+  },
 
-	components: [
-		{
-			path: '~/components/ui',
-			extensions: ['.vue'],
-			prefix: '',
-		},
-		{
-			path: '~/components/shared',
-			extensions: ['.vue'],
-			prefix: '',
-		},
-		{
-			path: '~/components',
-			extensions: ['.vue'],
-			prefix: '',
-		},
-	],
+  shadcn: {
+    prefix: '',
+    componentDir: './components/ui',
+  },
 
-	// ssr config
-	ssr: false,
+  components: [
+    {
+      path: '~/components/ui',
+      extensions: ['.vue'],
+      prefix: '',
+    },
+    {
+      path: '~/components/shared',
+      extensions: ['.vue'],
+      prefix: '',
+    },
+    {
+      path: '~/components',
+      extensions: ['.vue'],
+      prefix: '',
+    },
+  ],
 
-	// runtime config
-	runtimeConfig: {
-		app: {},
-		openaiKey: '',
-		replicateKey: '',
-		appUrl: '',
-		public: {
-			apiBase: 'http://localhost:8888/api',
-		},
-	},
+  // ssr config
+  ssr: false,
 
-	// ts
-	typescript: {
-		strict: true,
-		shim: false,
-	},
+  // runtime config
+  runtimeConfig: {
+    app: {},
+    openaiKey: '',
+    replicateKey: '',
+    appUrl: '',
+    public: {
+      apiBase: 'http://localhost:8888/api',
+    },
+  },
+
+  // ts
+  typescript: {
+    strict: true,
+    shim: false,
+  },
 });
