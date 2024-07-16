@@ -57,7 +57,7 @@ const handleCancel = (e: MouseEvent) => {
         />
 
         <div class="absolute right-3 top-3">
-          <AppHeart :listing-id="data._id!" />
+          <AppHeart :listing-id="data._id!" :is-wishlist="data.isWishlist" />
         </div>
       </div>
 

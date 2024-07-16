@@ -1,26 +1,35 @@
 <script setup lang="ts">
-import { categoryData } from '~/utils/constants';
 import { listings, type Range, type SafeListing } from '~/types/listing.type';
 import { differenceInDays, eachDayOfInterval } from 'date-fns';
 import { toast } from '~/components/ui/toast';
 import { listingApi } from '~/apis/2-listing.api';
 
 const route = useRoute();
+const authStore = useAuthStore();
+
+const { authUser } = storeToRefs(authStore);
 
 const { id } = route.params as {
   id: string;
 };
 
-const { data } = useAsyncData(`listing-${id}`, () => {
-  return listingApi.getById(id, {
-    _populate: 'categoryIds,hostId',
-  });
-});
+const { data } = useAsyncData(
+  `listing-${id}`,
+  () =>
+    listingApi.getById(id, {
+      _populate: 'categoryIds,hostId',
+      userId: authUser.value?.user._id,
+    }),
+  {
+    watch: [authUser],
+  },
+);
 
 const initialDateRange = reactive<Range>({
   start: new Date(),
   end: new Date(),
 });
+
 const isLoading = ref(false);
 const totalPrice = ref(data.value?.price);
 const dateRange = ref<Range>(initialDateRange);
@@ -30,6 +39,7 @@ const reservations = ref<Range[]>([
     end: new Date(new Date().setDate(new Date().getDate() + 4)),
   },
 ]);
+
 const disabledDates = computed(() => {
   let dates: Date[] = [];
   reservations.value.forEach((reservation) => {
@@ -104,6 +114,7 @@ const setDates = (date: Range) => {
       <div class="flex flex-col gap-6">
         <ListingHead
           :id="data._id!"
+          :is-wishlist="data.isWishlist"
           :title="data.title"
           :location-value="data.locationValue"
           :image-url="data.images[0]"

@@ -1,21 +1,18 @@
 import { listingApi } from '~/apis/2-listing.api';
 import type { Listing } from '~/types/2-listing';
 import type { PageInfo } from '~/types/paginate-reponse.type';
-import { handleError } from '~/utils/helpers/handle-error.helper';
 
-export const useListingStore = defineStore('listings', () => {
+export const useWishlistStore = defineStore('wishlist', () => {
   const listings = ref<Listing[]>([]);
   const pageInfo = ref<PageInfo>();
   const isLoadMoreLoading = ref<boolean>(false);
-  const authStore = useAuthStore();
-  const { authUser } = storeToRefs(authStore);
 
   const { filter } = useListingQuery();
 
-  const filterWatch = computed(() => {
-    if (authUser.value?.user._id)
-      Object.assign(filter.value, { userId: authUser.value.user._id });
+  const authStore = useAuthStore();
+  const { authUser } = storeToRefs(authStore);
 
+  const filterWatch = computed(() => {
     return new URLSearchParams(filter.value).toString();
   });
 
@@ -24,23 +21,22 @@ export const useListingStore = defineStore('listings', () => {
     data: listingPagination,
     error,
   } = useAsyncData(
-    'listings-pagination',
-    () => {
-      if (authUser.value?.user._id)
-        Object.assign(filter.value, { userId: authUser.value.user._id });
-
-      return listingApi.paginate(filter.value);
-    },
+    'wishlist-pagination',
+    () => listingApi.getWishlistPaginate(filter.value),
     {
-      watch: [filterWatch],
+      watch: [filterWatch, authUser],
     },
   );
 
-  onMounted(() => {
-    if (!error.value) return;
+  watch(
+    () => error.value,
+    () => {
+      if (!error.value) return;
 
-    handleError(error.value);
-  });
+      listings.value = [];
+      pageInfo.value = undefined;
+    },
+  );
 
   watchEffect(() => {
     if (listingPagination.value) {
@@ -54,8 +50,7 @@ export const useListingStore = defineStore('listings', () => {
 
     isLoadMoreLoading.value = true;
 
-    const data = await listingApi.paginate({
-      ...filter.value,
+    const data = await listingApi.getWishlistPaginate({
       _page: pageInfo.value._nextPage,
     });
 

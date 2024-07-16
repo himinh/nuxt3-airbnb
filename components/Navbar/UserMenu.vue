@@ -4,7 +4,7 @@ const { authUser } = storeToRefs(authStore);
 
 const { onOpen: openLoginModal } = useLogin();
 const { onOpen: openRentModal } = useRentModal();
-const onLogout = () => {
+const onLogout = async () => {
   useRouter().push({ query: { ...useRoute().query, auth: 'login' } });
   authStore.logout();
 };

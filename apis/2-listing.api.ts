@@ -8,6 +8,13 @@ import type { FetchOptions, PaginationParams } from '~/utils/types';
 const LISTING_URL = '/listings';
 export const listingApi = {
   //  ----- Method: GET -----
+  getWishlistPaginate: (
+    query?: PaginationParams,
+    options?: FetchOptions,
+  ): Promise<PaginateResponse<Listing>> => {
+    return authFetch.get(`${LISTING_URL}/wishlist/paginate`, query, options);
+  },
+
   paginate: (
     query?: PaginationParams,
     options?: FetchOptions,

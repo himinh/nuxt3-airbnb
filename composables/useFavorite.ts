@@ -1,35 +1,27 @@
+import { listingApi } from '~/apis/2-listing.api';
+import { ActionEnum } from '~/utils/enums';
+
 interface FavoriteProps {
   listingId: string;
 }
-export const favoriteIds = ['1', '3', '6', '7', '8'];
-const isLoggedIn = true;
 
 export const useFavorite = ({ listingId }: FavoriteProps) => {
-  const { onOpen } = useLogin();
+  const authStore = useAuthStore();
 
-  const isFavorite = computed(() => favoriteIds.includes(listingId));
+  const { authUser } = storeToRefs(authStore);
 
-  const toggleFavorite = async (e: MouseEvent) => {
-    e.stopPropagation();
+  const toggleFavorite = async (isWishlist: boolean) => {
+    if (!authUser.value?.user._id) return useLogin().onOpen('login');
 
-    return new Promise((resolve, reject) => {
-      if (!isLoggedIn) return onOpen('login');
+    await listingApi.updateWishlist(
+      listingId,
+      isWishlist ? ActionEnum.Add : ActionEnum.Remove,
+    );
 
-      //TODO: Call api update favorite
-
-      if (!favoriteIds.includes(listingId)) {
-        favoriteIds.push(listingId);
-      } else {
-        favoriteIds.splice(favoriteIds.indexOf(listingId), 1);
-      }
-
-      refreshNuxtData(['listings', 'favorites']);
-      console.log({ favoriteIds });
-    });
+    return isWishlist;
   };
 
   return {
-    isFavorite,
     toggleFavorite,
   };
 };

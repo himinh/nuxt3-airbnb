@@ -1,23 +1,11 @@
 <script setup lang="ts">
-import { listings, type SafeListing } from '~/types/listing.type';
-
-const { pending, data } = useAsyncData('favorites', () => {
-  const getListings = (): Promise<SafeListing[]> => {
-    return new Promise((resolve) => {
-      setTimeout(
-        () => resolve(listings.filter((item) => favoriteIds.includes(item.id))),
-        1000,
-      );
-    });
-  };
-
-  return getListings();
-});
+const wishlistStore = useWishlistStore();
+const { pending, listings } = storeToRefs(wishlistStore);
 </script>
 
 <template>
   <AppEmptyState
-    v-if="!data?.length && !pending"
+    v-if="!listings?.length && !pending"
     title="No favorites found"
     subtitle="Looks like you haven't created any favorites yet"
   />
@@ -32,8 +20,8 @@ const { pending, data } = useAsyncData('favorites', () => {
 
       <template v-else>
         <ListingCardItem
-          v-for="listing in data"
-          :key="listing.id"
+          v-for="listing in listings"
+          :key="listing._id"
           :data="listing"
         />
       </template>

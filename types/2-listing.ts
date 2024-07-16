@@ -20,4 +20,11 @@ export type Listing = {
   reviewCount?: number;
   totalReviewRatings?: number;
   viewedCount?: number;
+  isWishlist?: boolean;
+};
+
+export type Wishlist = {
+  _id?: string;
+  userId: string;
+  listingId: Listing;
 };

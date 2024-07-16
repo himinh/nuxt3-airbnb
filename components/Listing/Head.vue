@@ -4,6 +4,7 @@ interface ListingHeadProps {
   imageUrl: string;
   locationValue: string;
   id: string;
+  isWishlist?: boolean;
 }
 const props = defineProps<ListingHeadProps>();
 const { getCountryByValue } = useRentModal();
@@ -26,7 +27,7 @@ const location = computed(() => getCountryByValue(props.locationValue));
         class="w-full object-cover"
       />
       <div class="absolute right-5 top-5">
-        <AppHeart :listing-id="id" />
+        <AppHeart :listing-id="id" :is-wishlist="isWishlist" />
       </div>
     </div>
   </div>
